@@ -56,7 +56,7 @@
 					"source": {
 						"type": "MySqlSource",
 						"query": {
-							"value": "SELECT CustomerID, Name, Age, Gender, City, JoinDate, LoyaltyTier, Last_Modified\nFROM CUSTOMER_MASTER_DIM\nWHERE Last_Modified > @{activity('Lookforlastupdateddate').output.firstrow.LastLoadTimestamp}'",
+							"value": "SELECT *\nFROM CUSTOMER_MASTER_DIM\nWHERE Last_Modified > '@{formatDateTime(activity('Lookforlastupdateddate').output.firstRow.LastLoadTimestamp,'yyyy-MM-dd HH:mm:ss')}'\n\n",
 							"type": "Expression"
 						}
 					},
