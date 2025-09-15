@@ -620,6 +620,7 @@
 							],
 							"storeSettings": {
 								"type": "FileServerReadSettings",
+								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
@@ -746,6 +747,75 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/Sales_Source_Data')]",
 				"[concat(variables('factoryId'), '/datasets/FACT_SALES')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Source2Staging')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Customer",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Customer_Incremental_Data",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "Product_Catalog",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Product_catalogingestion",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					},
+					{
+						"name": "SalesIngestion",
+						"type": "ExecutePipeline",
+						"dependsOn": [],
+						"policy": {
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"pipeline": {
+								"referenceName": "Salesingestion",
+								"type": "PipelineReference"
+							},
+							"waitOnCompletion": true,
+							"parameters": {}
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Customer_Incremental_Data')]",
+				"[concat(variables('factoryId'), '/pipelines/Product_catalogingestion')]",
+				"[concat(variables('factoryId'), '/pipelines/Salesingestion')]"
 			]
 		}
 	]
