@@ -56,7 +56,7 @@
 					"source": {
 						"type": "MySqlSource",
 						"query": {
-							"value": "SELECT *\nFROM CUSTOMER_MASTER_DIM\nWHERE Last_Modified > '@{formatDateTime(activity('Lookforlastupdateddate').output.firstRow.LastLoadTimestamp,'yyyy-MM-dd HH:mm:ss')}'\n\n",
+							"value": "SELECT *\nFROM CUSTOMER_MASTER_DIM\nWHERE LastUpdated > '@{formatDateTime(activity('Lookforlastupdateddate').output.firstRow.LastLoadTimestamp,'yyyy-MM-dd HH:mm:ss')}'\n\n",
 							"type": "Expression"
 						}
 					},
