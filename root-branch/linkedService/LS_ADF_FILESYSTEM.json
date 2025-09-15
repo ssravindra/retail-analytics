@@ -1,0 +1,17 @@
+{
+	"name": "LS_ADF_FILESYSTEM",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "C:\\Users\\sairavindra\\Sales_Data",
+			"userId": "RAVINDRA\\sairavindra",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJiMGU2NWY2Yy1jYTFkLTQ5MWQtYTljOC1hOTdiYjdlMmE1MTIiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "SHIRLOCAL",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
