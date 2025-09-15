@@ -1,0 +1,18 @@
+{
+	"name": "Customer_Source_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADF_MYSQL",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Source_datasets"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "`customer_master_dim`"
+		}
+	}
+}
