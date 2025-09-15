@@ -1,0 +1,276 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "datafactory4rproject1"
+		},
+		"LS_ADLS_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS'"
+		},
+		"LS_ADF_FILESYSTEM_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_ADF_FILESYSTEM'"
+		},
+		"LS_ADF_MYSQL_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_ADF_MYSQL'"
+		},
+		"LS_ADLS_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://retailanalyticsp1.dfs.core.windows.net/"
+		},
+		"LS_ADF_FILESYSTEM_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\Users\\sairavindra\\Sales_Data"
+		},
+		"LS_ADF_FILESYSTEM_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "RAVINDRA\\sairavindra"
+		},
+		"LS_ADF_MYSQL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"LS_ADF_MYSQL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "retailanalytics"
+		},
+		"LS_ADF_MYSQL_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"LS_ADF_REST_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://my-json-server.typicode.com/ssravindra/data/products"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADLS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_ADLS_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_ADLS_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IRLOCAL')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SHIRLOCAL')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADF_FILESYSTEM')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "FileServer",
+				"typeProperties": {
+					"host": "[parameters('LS_ADF_FILESYSTEM_properties_typeProperties_host')]",
+					"userId": "[parameters('LS_ADF_FILESYSTEM_properties_typeProperties_userId')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_ADF_FILESYSTEM_password')]"
+					}
+				},
+				"connectVia": {
+					"referenceName": "SHIRLOCAL",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/SHIRLOCAL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADF_MYSQL')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"server": "[parameters('LS_ADF_MYSQL_properties_typeProperties_server')]",
+					"port": 3306,
+					"database": "[parameters('LS_ADF_MYSQL_properties_typeProperties_database')]",
+					"username": "[parameters('LS_ADF_MYSQL_properties_typeProperties_username')]",
+					"sslMode": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('LS_ADF_MYSQL_password')]"
+					},
+					"driverVersion": "v2"
+				},
+				"connectVia": {
+					"referenceName": "SHIRLOCAL",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/SHIRLOCAL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADF_REST')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "RestService",
+				"typeProperties": {
+					"url": "[parameters('LS_ADF_REST_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
+				},
+				"connectVia": {
+					"referenceName": "SHIRLOCAL",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/SHIRLOCAL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Customer_Source_Data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADF_MYSQL",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Source_datasets"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {
+					"tableName": "`customer_master_dim`"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADF_MYSQL')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Product_Source_Data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADF_REST",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Source_datasets"
+				},
+				"annotations": [],
+				"type": "RestResource",
+				"typeProperties": {},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADF_REST')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Sales_Source_Data')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADF_FILESYSTEM",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "Source_datasets"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "FileServerLocation",
+						"fileName": {
+							"value": "Sales_data_@{formatDateTime(addDays(utcNow(),-1 ),'YYYYMMDD')}.csv",
+							"type": "Expression"
+						}
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "TransactionID",
+						"type": "String"
+					},
+					{
+						"name": "StoreID",
+						"type": "String"
+					},
+					{
+						"name": "ProductID",
+						"type": "String"
+					},
+					{
+						"name": "CustomerID",
+						"type": "String"
+					},
+					{
+						"name": "Date",
+						"type": "String"
+					},
+					{
+						"name": "Quantity",
+						"type": "String"
+					},
+					{
+						"name": "UnitPrice",
+						"type": "String"
+					},
+					{
+						"name": "Discount",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADF_FILESYSTEM')]"
+			]
+		}
+	]
+}

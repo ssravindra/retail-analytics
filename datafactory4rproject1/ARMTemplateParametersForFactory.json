@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "datafactory4rproject1"
+		},
+		"LS_ADF_FILESYSTEM_password": {
+			"value": ""
+		},
+		"LS_ADF_MYSQL_password": {
+			"value": ""
+		},
+		"LS_ADLS_accountKey": {
+			"value": ""
+		},
+		"LS_ADF_FILESYSTEM_properties_typeProperties_host": {
+			"value": "C:\\Users\\sairavindra\\Sales_Data"
+		},
+		"LS_ADF_FILESYSTEM_properties_typeProperties_userId": {
+			"value": "RAVINDRA\\sairavindra"
+		},
+		"LS_ADF_MYSQL_properties_typeProperties_server": {
+			"value": "localhost"
+		},
+		"LS_ADF_MYSQL_properties_typeProperties_database": {
+			"value": "retailanalytics"
+		},
+		"LS_ADF_MYSQL_properties_typeProperties_username": {
+			"value": "root"
+		},
+		"LS_ADF_REST_properties_typeProperties_url": {
+			"value": "https://my-json-server.typicode.com/ssravindra/data/products"
+		},
+		"LS_ADLS_properties_typeProperties_url": {
+			"value": "https://retailanalyticsp1.dfs.core.windows.net/"
+		}
+	}
+}
