@@ -1,0 +1,24 @@
+{
+	"name": "Sales_Source_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADF_FILESYSTEM",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Source_datasets"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "FileServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

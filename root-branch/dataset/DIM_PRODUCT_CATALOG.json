@@ -1,0 +1,24 @@
+{
+	"name": "DIM_PRODUCT_CATALOG",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Staging_sinkdataset"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "DIM_PRODUCT_CATALOG",
+				"folderPath": "Product_Catalog",
+				"fileSystem": "staginglayer"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

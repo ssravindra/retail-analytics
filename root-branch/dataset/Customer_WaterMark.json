@@ -1,0 +1,29 @@
+{
+	"name": "Customer_WaterMark",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "customer_watermark.json",
+				"fileSystem": "staginglayer"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"TableName": {
+					"type": "string"
+				},
+				"LastLoadTimestamp": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

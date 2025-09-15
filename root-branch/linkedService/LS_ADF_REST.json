@@ -1,0 +1,16 @@
+{
+	"name": "LS_ADF_REST",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://my-json-server.typicode.com/ssravindra/data/products",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		},
+		"connectVia": {
+			"referenceName": "SHIRLOCAL",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

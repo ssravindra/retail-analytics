@@ -1,0 +1,15 @@
+{
+	"name": "Product_Source_Data",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADF_REST",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Source_datasets"
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"schema": []
+	}
+}

@@ -1,0 +1,24 @@
+{
+	"name": "FACT_SALES",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Staging_sinkdataset"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "FACT_SALES",
+				"folderPath": "Sales_Data",
+				"fileSystem": "staginglayer"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
