@@ -1,0 +1,24 @@
+{
+	"name": "DIM_CUSTOMER",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Staging_sinkdataset"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "DIM_CUSTOMER_MASTER",
+				"folderPath": "Customer_Master_DIM",
+				"fileSystem": "staginglayer"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
