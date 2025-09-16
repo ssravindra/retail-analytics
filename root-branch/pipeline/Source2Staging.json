@@ -15,7 +15,7 @@
 						"referenceName": "Customer_Incremental_Data",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": false
 				}
 			},
 			{
@@ -31,7 +31,7 @@
 						"referenceName": "Product_catalogingestion",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": false
 				}
 			},
 			{
@@ -47,7 +47,7 @@
 						"referenceName": "Salesingestion",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": false
 				}
 			}
 		],
