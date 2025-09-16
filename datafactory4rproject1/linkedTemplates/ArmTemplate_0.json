@@ -201,7 +201,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "FACT_SALES",
+						"fileName": {
+							"value": "@concat('sales_data_', formatDateTime(utcNow(), 'yyyyMMddHHmmss'), '.parquet')\n",
+							"type": "Expression"
+						},
 						"folderPath": "Sales_Data",
 						"fileSystem": "staginglayer"
 					},
