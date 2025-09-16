@@ -385,7 +385,7 @@
 								"type": "JsonSource",
 								"storeSettings": {
 									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
+									"recursive": false,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
@@ -774,7 +774,7 @@
 								"referenceName": "Customer_Incremental_Data",
 								"type": "PipelineReference"
 							},
-							"waitOnCompletion": true,
+							"waitOnCompletion": false,
 							"parameters": {}
 						}
 					},
@@ -791,7 +791,7 @@
 								"referenceName": "Product_catalogingestion",
 								"type": "PipelineReference"
 							},
-							"waitOnCompletion": true,
+							"waitOnCompletion": false,
 							"parameters": {}
 						}
 					},
@@ -808,7 +808,7 @@
 								"referenceName": "Salesingestion",
 								"type": "PipelineReference"
 							},
-							"waitOnCompletion": true,
+							"waitOnCompletion": false,
 							"parameters": {}
 						}
 					}
