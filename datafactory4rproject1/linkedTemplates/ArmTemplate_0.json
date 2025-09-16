@@ -140,7 +140,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "DIM_CUSTOMER_MASTER",
+						"fileName": {
+							"value": "@concat('CUSTOMER_MASTER', formatDateTime(utcNow(),'yyyyMMddHHmmss'), '.parquet')\n",
+							"type": "Expression"
+						},
 						"folderPath": "Customer_Master_DIM",
 						"fileSystem": "staginglayer"
 					},
